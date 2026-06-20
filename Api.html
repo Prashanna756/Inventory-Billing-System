@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Inventory Form</title>
+</head>
+<body>
+
+  <h2>Add Product</h2>
+
+  <form id="myForm">
+    <input type="text" name="product" placeholder="Product Name" required><br><br>
+    <input type="number" name="quantity" placeholder="Quantity" required><br><br>
+    <input type="number" name="price" placeholder="Price" required><br><br>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <p id="msg"></p>
+
+  <script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycbxuKEH2DSQqblCnDJ8RJuSr24EkdbxbnekiQbBPfYFMkTOHbpY_z0ArBypXDK6z980SpQ/exec"; 
+    const form = document.getElementById("myForm");
+    const msg = document.getElementById("msg");
+
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+
+      fetch(scriptURL, {
+        method: "POST",
+        body: new FormData(form)
+      })
+      .then(response => {
+        msg.innerHTML = "Data sent successfully!";
+        form.reset();
+      })
+      .catch(error => {
+        msg.innerHTML = "Error sending data!";
+        console.error("Error!", error.message);
+      });
+    });
+  </script>
+
+</body>
+</html>
